@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CCPA Authorized Agent Request</title>
+	<meta charset="utf-8"  />
+</head>
+
+<body>
+
+<!-- Div containing the info of an authorized agent --> 
+<div class="vcard" id="agent">
+  <span class="fn">Agent Organization</span>
+  <div class="agent-info"><!-- How to look up this agent's registration -->
+  	<span class="jurisdiction">us/ca</span>
+	<span class="id">31337</span>
+	<link class="agent-info" href="http://ca.example.gov/agent-directory/31337">
+  </div>
+  <div class="adr">
+    <div class="street-address">31337 Main Street</div>
+    <span class="locality">Los Angeles</span>,
+    <abbr class="region" title="California">CA</abbr>
+    <span class="postal-code">90201</span>
+    <div class="country-name">USA</div>
+  </div>
+  <div class="tel">
+   <span class="type">Work</span>+1-415-555-1212
+  </div>
+  <div>Email:
+   <span class="email">agent@example.org</span>
+  </div>
+</div>
+
+<p>To whom it may concern:</p>
+
+<p>Please do the following request:
+
+<span class="privacy-option us/ca">
+	<span class="request opt-out">Opt out of the sale of personal information.</span>
+</span>
+
+for the following individual:</p>
+
+<!-- Div containing the info of a consumer -->
+<div class="agent-user">
+  <div class="vcard" id="consumer">
+    <div class="adr">
+      <span class="fn">Joe Example</span>
+      <div class="street-address">31337 Main Street</div>
+      <span class="locality">Malibu</span>,
+      <abbr class="region" title="California">CA</abbr>
+      <span class="postal-code">90201</span>
+      <div class="country-name">USA</div>
+    </div>
+    <div class="tel">
+     <span class="type">Home</span>+1-415-555-1212
+    </div>
+    <div>Email:
+     <span class="email">joe@example.com</span>
+    </div>
+  </div>
+  <div class="agent-authorization"><!-- Attach proof of the agent/consumer relationship -->
+  	<a href="data:application/pdf;base64....">Power of Attorney signed by the above individual</a>
+  </div>
+</div>
+
+</body></html>
