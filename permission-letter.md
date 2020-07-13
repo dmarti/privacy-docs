@@ -1,9 +1,11 @@
 # Written permission to opt out
 
-I, {{ name }}, give my permission to Consumer Reports to opt out of the sale of my personal information.
+I, {{ name }}, hereby designate Consumer Reports as my authorized agent under the California Consumer Privacy Act (CCPA).
+
+I grant Consumer Reports permission to opt out of sales of personal information on my behalf.
 
 ________________
-Name and Sufficient ID of Consumer 
+Name of Consumer 
 
 ________________
 Name and Role of Consumer Reports
