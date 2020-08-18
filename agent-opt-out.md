@@ -54,7 +54,7 @@ belief that this opt-out is fraudulent.
 
 Please reply to this request within 15 days by email to:
 
-{{email}}
+{{agent_email}}
 
 either to confirm that you have completed all
 required action, or to provide an explanation of your
