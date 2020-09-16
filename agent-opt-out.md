@@ -1,14 +1,10 @@
 ---
 title: "California Consumer Privacy Act agent opt-out letter DRAFT"
 permalink: ccpa-agent-opt-out
-date: 2020-08-18
+date: 2020-09-15
 ---
 
 To whom it may concern:
-
-Any personal information provided in this email may
-solely be used for the purpose of complying with the
-request stated in this email.
 
 This is an authorized agent request under the
 California Consumer Privacy Act.  {{ccpa_agent_name}},
@@ -21,6 +17,10 @@ The individual named below is a resident of the State
 of California, and has given written permission to
 {{ccpa_agent_name}} to act on their behalf. A copy of
 this written permission is included with this letter.
+
+Any personal information provided in this email may
+solely be used for the purpose of complying with the
+request stated in this email.
 
 {{ name }}, a California consumer, hereby opts out of the
 sale of their personal information.  The consumer's address is
@@ -39,27 +39,17 @@ According to Section 999.315(h) of the CCPA
 regulations, you may only deny this request
 if you provide a good-faith, reasonable, and
 documented belief that this opt-out is fraudulent.
-The regulations state, "If a business, however,
-has a good-faith, reasonable, and documented belief
-that a request to opt-out is fraudulent, the business
-may deny the request.  The business shall inform the
-requestor that it will not comply with the request
-and shall provide an explanation why it believes the
-request is fraudulent."
 
 If you choose not to act on this opt-out, you must
 provide {{ccpa_agent_name}} with an explanation of
 why you have a good-faith, reasonable, and documented
 belief that this opt-out is fraudulent.
 
-Please reply to this request within 15 days by email to:
-
-{{agent_email}}
-
-either to confirm that you have completed all
-required action, or to provide an explanation of your
-good-faith, reasonable, and documented belief that
-this request is fraudulent.
+Please reply to {{ ccpa_agent_name }} by email to
+{{agent_email}} within 15 days, either to confirm
+that you have completed all required action, or to
+provide an explanation of your good-faith, reasonable,
+and documented belief that this request is fraudulent.
 
 Sincerely,
 
