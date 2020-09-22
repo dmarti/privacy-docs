@@ -1,0 +1,19 @@
+* {
+	margin: 0;
+	padding: 0;
+	hyphens: never;
+}
+
+body {
+	margin: 1in;
+	font-family: fixed;
+	font-size: 100%;
+	font-variant-ligatures: none;
+	background-color: white;
+	color: black;
+	padding: 2ex;
+}
+
+p {
+	margin-bottom: 1ex;
+}
