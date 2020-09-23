@@ -1,12 +1,12 @@
 ---
-title: "California Consumer Privacy Act agent opt-out letter DRAFT"
+title: "California Consumer Privacy Act agent opt-out letter"
 permalink: ccpa-agent-opt-out
-date: 2020-09-15
+date: 2020-09-23
 ---
 
 To whom it may concern:
 
-This is an authorized agent request under the
+This is an authorized agent request to exercise rights under the
 California Consumer Privacy Act.  {{ccpa_agent_name}},
 is registered with the Secretary of State of
 California to conduct business in California,
@@ -19,7 +19,7 @@ of California, and has given written permission to
 this written permission is included with this letter.
 
 Any personal information provided in this email may
-solely be used for the purpose of complying with the
+be used solely for the limited purpose of complying with the
 request stated in this email.
 
 {{ name }}, a California consumer, hereby opts out of the
