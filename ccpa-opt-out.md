@@ -6,13 +6,11 @@ date: 2020-06-13
 
 To whom it may concern:
 
-Any information I provide to you may solely be used
-for the purpose of complying with the request stated
-in this email.
+Any information I provide to you may be used solely for the limited purpose of complying with the request stated in this email.
 
 I opt out of the sale of my personal information.
 
-I am a California citizen.  My address is
+I am a California resident.  My address is
 
 {{addressblock}}
 
@@ -31,7 +29,7 @@ further action from me.
 
 This email is digitally signed with a key that is
 independently verified as linked to multiple forms
-of identity data for me.  See the Keybase link below
+of identity data for me.  See the link below
 my signature for details.
 
 ## If you choose not to act on this opt-out
@@ -61,7 +59,7 @@ service, are not genuine.
 ## Transfer of my personal information to Facebook
 
 Upon receipt of this opt-out, you are no longer
-permitted, by law, or by Facebook policy, to use
+permitted, by law or by Facebook policy, to use
 my personal information for any Facebook Custom
 Audience.  The CCPA defines "Sale" as selling,
 renting, releasing, disclosing, disseminating, making
