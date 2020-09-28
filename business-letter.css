@@ -6,7 +6,7 @@
 
 body {
 	margin: 1in;
-	font-family: fixed;
+	font-family: Courier, fixed;
 	font-size: 100%;
 	font-variant-ligatures: none;
 	background-color: white;
@@ -14,6 +14,19 @@ body {
 	padding: 2ex;
 }
 
-p {
-	margin-bottom: 1ex;
+h1 {
+	display: none;
+}
+
+div {
+	margin-bottom: 0.5in;
+}
+
+main p {
+	max-width: 55em;
+	margin-bottom: 2.5ex;
+}
+
+div#closing {
+	line-height: 400%;
 }

@@ -1,10 +1,16 @@
 # CONSENT
 
+<div id="heading">
 {{name}}
 
 {{addressblock}}
+</div>
 
+<div id="date">
 {{ date }}
+</div>
+
+<main>
 
 To whom it may concern:
 
@@ -31,6 +37,10 @@ Please provide us with any correspondence, requests for additional information, 
 
 By signing below, I also agree to receive the {{ ccpa_agent_newsletter_name }} and other communications from {{ ccpa_agent_name }}.
 
+</main>
 
-______________________________________
+<div id="closing">
+Sincerely,
+
 {{ name }}
+</div>
