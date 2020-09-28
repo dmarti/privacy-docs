@@ -23,7 +23,7 @@ to the processing of my personal information
 by {{ ccpa_agent_name }} for the purpose of exercising my
 California Privacy Rights, and agree to the use of
 my information by {{ ccpa_agent_name }} for research
-purposes.
+and related reporting purposes.
 
 I understand that I may withdraw my permission at any time.
 
