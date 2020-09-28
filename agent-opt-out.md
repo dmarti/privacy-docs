@@ -35,7 +35,7 @@ Their email address is {{email}}
 identity. A copy of the verification records is
 included with this letter.
 
-According to Section 999.315(h) of the CCPA
+According to Section 999.315(g) of the CCPA
 regulations, you may only deny this request
 if you provide a good-faith, reasonable, and
 documented belief that this opt-out is fraudulent.
