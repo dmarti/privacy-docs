@@ -34,7 +34,7 @@ my signature for details.
 
 ## If you choose not to act on this opt-out
 
-According to Section 999.315(h) of the CCPA
+According to Section 999.315(g) of the CCPA
 regulations, you may only deny this request
 if you provide a good-faith, reasonable, and
 documented belief that this opt-out is fraudulent.
