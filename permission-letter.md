@@ -1,9 +1,11 @@
 # CONSENT
 
 <div id="heading">
-{{name}}
+{{ name }}
 
-{{addressblock}}
+{{ addressblock }}
+
+{{ email }}
 </div>
 
 <div id="date">
@@ -41,6 +43,8 @@ By signing below, I also agree to receive the {{ ccpa_agent_newsletter_name }} a
 
 <div id="closing">
 Sincerely,
+</div>
 
+<div id="signature-name">
 {{ name }}
 </div>

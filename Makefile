@@ -3,12 +3,14 @@ ADDRESSBLOCK ?= "Test address<br>San Francisco, CA 90210"
 CCPA_AGENT_NAME ?= "CCPA Agent Organization"
 CCPA_AGENT_NEWSLETTER_NAME ?= "CCPA Agent Newsletter"
 CCPA_AGENT_EMAIL ?= "agent@example.com"
+EMAIL ?= "user@example.com"
 
 all : permission-letter.pdf
 
 permission-letter-complete.md : permission-letter.md Makefile
 	date=`date +'%B %d, %Y'` \
 	name="${NAME}" addressblock=${ADDRESSBLOCK} \
+	email="${EMAIL}" \
 	ccpa_agent_name="${CCPA_AGENT_NAME}" ccpa_agent_email=${CCPA_AGENT_EMAIL} \
 	ccpa_agent_newsletter_name=${CCPA_AGENT_NEWSLETTER_NAME} \
 	mo < $< > $@

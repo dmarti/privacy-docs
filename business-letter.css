@@ -18,7 +18,7 @@ h1 {
 	display: none;
 }
 
-div {
+div, main {
 	margin-bottom: 0.5in;
 }
 
@@ -27,6 +27,15 @@ main p {
 	margin-bottom: 2.5ex;
 }
 
-div#closing {
-	line-height: 400%;
+#signature-name {
+	margin-top: 1in;
+	padding-top: 0.5ex;
+	padding-right: auto;
+	width: 2in;
+	border-top: 1px solid black;
+}
+
+#signature-name p {
+	overflow: visible;
+	white-space: nowrap;
 }
