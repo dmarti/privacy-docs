@@ -6,7 +6,6 @@ import sys
 
 agentinfo = "ccpa_agent_name='Consumer Reports' ccpa_agent_email='datarightsstudy@cr.org' ccpa_agent_newsletter_name='CCPA Authorized Agent Study Newsletter'"
 
-print ('mkdir -p tmp')
 for pathname in sys.argv[1:]:
     with open(sys.argv[1]) as cfile:
         reader = csv.DictReader(cfile)

@@ -22,3 +22,4 @@ docker run --volume "$(pwd)":/docs:rw,Z \
 	--entrypoint make \
 	make_letters
 
+rm -rf tmp

@@ -5,6 +5,7 @@ PII=$(shell find . -name *.csv)
 all : $(PDFS)
 
 tmp/%.md : $(PII)
+	mkdir -p tmp
 	tools/extract-csv.py $(PII) | sh
 
 %.html : tmp/%.md business-letter.css
