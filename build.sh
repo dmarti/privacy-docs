@@ -1,11 +1,24 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-FROM=$(egrep '^set from' $HOME/.muttrc | cut -d '=' -f 2 | tr -d '"')
+# Run this script from the directory where it is installed.
+trap popd EXIT
+pushd $PWD &> /dev/null
+cd $(dirname "$0")
 
-if [ "x$CCPA_EMAIL" == 'x' ]; then
-        export CCPA_EMAIL=$FROM
-fi
+dockerfail() {
+	echo
+	echo "Docker not found. Check that Docker is installed and running."
+	echo
+	exit 1
+}
+docker ps &> /dev/null || dockerfail
 
-EARTHLY_SECRETS="name=$CCPA_NAME,addressblock=$CCPA_ADDRESSBLOCK,ccpa_agent_name=$CCPA_AGENT_NAME" \
-earth +build 
+set -e
+set -x
+
+docker build --tag=make_letters .
+
+docker run --volume "$(pwd)":/docs:rw,Z \
+	--entrypoint date \
+	make_letters
 
