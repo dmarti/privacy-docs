@@ -1,32 +1,23 @@
-NAME ?= Test User
-ADDRESSBLOCK ?= "Test address<br>San Francisco, CA 90210"
-CCPA_AGENT_NAME ?= "CCPA Agent Organization"
-CCPA_AGENT_NEWSLETTER_NAME ?= "CCPA Agent Newsletter"
-CCPA_AGENT_EMAIL ?= "agent@example.com"
-EMAIL ?= "user@example.com"
+LETTERS=$(shell find tmp -name '*.md')
+PDFS=$(patsubst tmp/%.md, %.pdf, $(LETTERS))
+PII=$(shell find . -name *.csv)
 
-all : permission-letter.pdf
+all : $(PDFS)
+	make tmp
 
-permission-letter-complete.md : permission-letter.md Makefile
-	date=`date +'%B %d, %Y'` \
-	name="${NAME}" addressblock=${ADDRESSBLOCK} \
-	email="${EMAIL}" \
-	ccpa_agent_name="${CCPA_AGENT_NAME}" ccpa_agent_email=${CCPA_AGENT_EMAIL} \
-	ccpa_agent_newsletter_name=${CCPA_AGENT_NEWSLETTER_NAME} \
-	mo < $< > $@
+tmp : $(PII)
+	tools/extract-csv.py $(PII) | sh
 
-permission-letter.html : permission-letter-complete.md business-letter.css
+%.html : tmp/%.md business-letter.css
 	pandoc --self-contained --metadata pagetitle='CCPA Authorized Agent written permission' -s --css=business-letter.css -o $@ $<
 
-permission-letter.pdf : permission-letter.html
+%.pdf : %.html
 	wkhtmltopdf $< $@
 
-preview : permission-letter.pdf
-	evince $<
-
 clean :
-	rm -f permission-letter-complete.md
-	rm -f permission-letter.html
-	rm -f permission-letter.pdf
+	rm -f *.html
+	rm -f *.pdf
+	rm -rf tmp
 
-.PHONY : clean
+.PHONY : clean all
+
