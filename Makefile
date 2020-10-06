@@ -1,11 +1,10 @@
-LETTERS=$(shell find tmp -name '*.md')
-PDFS=$(patsubst tmp/%.md, %.pdf, $(LETTERS))
+IDS=$(shell cat *.csv | cut -d ',' -f 1 | grep '[0-9]')
+PDFS=$(patsubst %, %.pdf, $(IDS))
 PII=$(shell find . -name *.csv)
 
 all : $(PDFS)
-	make tmp
 
-tmp : $(PII)
+tmp/%.md : $(PII)
 	tools/extract-csv.py $(PII) | sh
 
 %.html : tmp/%.md business-letter.css
