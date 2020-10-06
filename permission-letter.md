@@ -35,8 +35,6 @@ and related reporting purposes.
 
 I understand that I may withdraw my permission at any time.
 
-Please provide us with any correspondence, requests for additional information, or other communications you receive from subject companies regarding our exercise of your California Privacy Rights.   These can be sent to {{ ccpa_agent_email }}.
-
 By signing below, I also agree to receive the {{ ccpa_agent_newsletter_name }} and other communications from {{ ccpa_agent_name }}.
 
 </main>
