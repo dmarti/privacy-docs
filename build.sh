@@ -19,6 +19,6 @@ set -x
 docker build --tag=make_letters .
 
 docker run --volume "$(pwd)":/docs:rw,Z \
-	--entrypoint date \
+	--entrypoint make \
 	make_letters
 

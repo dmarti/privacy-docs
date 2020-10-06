@@ -1,7 +1,7 @@
 FROM debian:stable
 
 RUN apt-get -y update && \
-    apt-get -y install build-essential curl pandoc wkhtmltopdf && \
+    apt-get -y install build-essential curl pandoc python3 wkhtmltopdf && \
     apt-get -y --purge autoremove && \
     apt-get -y clean 
 
