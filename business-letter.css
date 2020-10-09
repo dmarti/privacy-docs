@@ -6,7 +6,7 @@
 
 body {
 	margin: 1in;
-	font-family: Courier, fixed;
+	font-family: Courier, Helvetica, fixed;
 	font-size: 100%;
 	font-variant-ligatures: none;
 	background-color: white;
