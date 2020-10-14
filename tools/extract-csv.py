@@ -10,8 +10,10 @@ for pathname in sys.argv[1:]:
     with open(sys.argv[1]) as cfile:
         reader = csv.DictReader(cfile)
         for row in reader:
-            addressblock = row['primary_address1']
-            two = row.get('primary_address2')
+            addressblock = row['address_address1']
+            if not addressblock:
+                addressblock = row['primary_address1']
+            two = row.get('address_address2')
             if two:
                 addressblock += ('<br>%s' % two)
             addressblock += ('<br>%s, %s %s' % (row['primary_city'],
