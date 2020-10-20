@@ -46,7 +46,7 @@ why you have a good-faith, reasonable, and documented
 belief that this opt-out is fraudulent.
 
 Please reply to {{ ccpa_agent_name }} by email to
-{{agent_email}} within 15 days, either to confirm
+{{ccpa_agent_email}} within 15 days, either to confirm
 that you have completed all required action, or to
 provide an explanation of your good-faith, reasonable,
 and documented belief that this request is fraudulent.
