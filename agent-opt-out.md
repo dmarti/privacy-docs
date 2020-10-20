@@ -7,7 +7,7 @@ date: 2020-09-23
 To whom it may concern:
 
 This is an authorized agent request to exercise rights under the
-California Consumer Privacy Act.  {{ccpa_agent_name}},
+California Consumer Privacy Act.  {{ccpa_agent_name}}
 is registered with the Secretary of State of
 California to conduct business in California,
 and has a California Corporate Number of
