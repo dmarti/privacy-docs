@@ -22,7 +22,7 @@ oos/%.html : oos/%.md business-letter.css
 	pandoc --self-contained --metadata pagetitle='CCPA Authorized Agent written permission' -s --css=business-letter.css -o $@ $<
 
 %.txt: oos/%.html
-	lynx -dump $< > $@
+	lynx -nomargins -dump $< > $@
 
 %.pdf : %.html
 	wkhtmltopdf $< $@
