@@ -32,8 +32,7 @@ Their phone number is {{phone}}.
 Their email address is {{email}}
 
 {{ccpa_agent_name}} has verified the consumer's
-identity. A copy of the verification records is
-included with this letter.
+identity, both by email and by either SMS or phone.
 
 According to Section 999.315(g) of the CCPA
 regulations, you may only deny this request
@@ -59,6 +58,4 @@ Attachments:
 
  * Written permission from consumer
 
- * Verification records 
-
- * {{ccpa_agent_name}} California corporate registration
+ * {{ccpa_agent_name}} California corporate Certificate of Information
