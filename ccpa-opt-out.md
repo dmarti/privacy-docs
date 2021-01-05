@@ -1,20 +1,23 @@
 ---
-title: "California Consumer Privacy Act opt-out letter"
+title: "California Consumer Privacy Act opt-out"
 permalink: ccpa-opt-out
-date: 2020-06-13
+date: 2020-10-07
+layout: document.html
 ---
 
 To whom it may concern:
 
-Any information I provide to you may be used solely for the limited purpose of complying with the request stated in this email.
+Any information I provide to you may be used solely
+for the limited purpose of complying with the request
+stated in this letter.
 
 I opt out of the sale of my personal information.
 
 I am a California resident.  My address is
 
-{{addressblock}}
+{{CCPA_ADDRESS}}
 
-My phone number is {{phone}}.
+My phone number is {{CCPA_PHONE}}.
 
 According to the California Consumer Privacy Act
 Regulations, published at
@@ -25,12 +28,7 @@ https://www.oag.ca.gov/sites/all/files/agweb/pdfs/privacy/oal-sub-final-text-of-
 consumer request."
 
 You must act on this opt-out without requiring any
-further action from me. 
-
-This email is digitally signed with a key that is
-independently verified as linked to multiple forms
-of identity data for me.  See the link below
-my signature for details.
+further action from me.
 
 ## If you choose not to act on this opt-out
 
@@ -49,17 +47,12 @@ request is fraudulent."
 If you choose not to act on this opt-out, you must
 provide me with an explanation of why you have
 agood-faith, reasonable, and documented belief that
-this opt-out is fraudulent.  In order to document this
-belief, please include in your required explanation
-sufficient evidence and citations to substantiate
-your belief that the cryptographic signature of this
-email, and/or the information about me on the Keybase
-service, are not genuine.
+this opt-out is fraudulent.
 
 ## Transfer of my personal information to Facebook
 
 Upon receipt of this opt-out, you are no longer
-permitted, by law or by Facebook policy, to use
+permitted, by law, or by Facebook policy, to use
 my personal information for any Facebook Custom
 Audience.  The CCPA defines "Sale" as selling,
 renting, releasing, disclosing, disseminating, making
@@ -85,7 +78,7 @@ custom audience."
 
 Please reply to this request within 15 days by email to:
 
-{{email}}
+{{CCPA_EMAIL}}
 
 either to confirm that you have completed all
 required action, or to provide an explanation of your
@@ -96,4 +89,5 @@ Thank you for your help.
 
 Sincerely,
 
-{{signature}}
+{{CCPA_NAME}}
+
