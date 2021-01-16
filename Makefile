@@ -7,6 +7,12 @@ all : $(PDFS) $(TXTS)
 
 txts : $(TXTS)
 
+ccpa-fax-complete.md : ccpa-fax.md
+	tail -n +7 $< | mo > $@
+	
+ccpa-fax.html : ccpa-fax-complete.md business-letter.css
+	pandoc --self-contained --metadata pagetitle='CCPA opt out FAX' -s --css=business-letter.css -o $@ $<
+
 tmp/%.md : $(PII)
 	mkdir -p tmp oos
 	tools/extract-csv.py $(PII) | sh
@@ -32,6 +38,7 @@ clean :
 	rm -f *.pdf
 	rm -f *.txt
 	rm -rf tmp oos
+	rm ccpa-fax-complete.md
 
 .PHONY : clean all
 

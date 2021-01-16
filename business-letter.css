@@ -6,8 +6,8 @@
 
 body {
 	margin: 1in;
-	font-family: Courier, Helvetica, fixed;
-	font-size: 100%;
+	font-family: fixed;
+	font-size: 120%;
 	font-variant-ligatures: none;
 	background-color: white;
 	color: black;
@@ -32,7 +32,6 @@ main p {
 	padding-top: 0.5ex;
 	padding-right: auto;
 	width: 2in;
-	border-top: 1px solid black;
 }
 
 #signature-name p {
