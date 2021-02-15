@@ -11,12 +11,7 @@ for pathname in sys.argv[1:]:
         reader = csv.DictReader(cfile)
         for row in reader:
             phone = row['mobile_number']
-            addressblock = row['address_address1']
-            if not addressblock:
-                addressblock = row['primary_address1']
-            two = row.get('address_address2')
-            if two:
-                addressblock += ('<br>%s' % two)
+            addressblock = row['user_submitted_address1']
             addressblock += ('<br>%s, %s %s' % (row['primary_city'],
                                                    row['primary_state'],
                                                    row['primary_zip']))
@@ -27,5 +22,5 @@ for pathname in sys.argv[1:]:
                        "addressblock='%s'" % addressblock,
                        agentinfo]
                       )
-            print ("%s mo < permission-letter.md > tmp/%s.md" % (environ, row['nationbuilder_id']))
-            print ("%s mo < agent-access.md > oos/%s.md" % (environ, row['nationbuilder_id']))
+            print ("%s mo < permission-letter.md > tmp/%s.md" % (environ, row['cr_id']))
+            print ("%s mo < agent-access.md > oos/%s.md" % (environ, row['cr_id']))
