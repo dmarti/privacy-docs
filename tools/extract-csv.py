@@ -28,4 +28,4 @@ for pathname in sys.argv[1:]:
                        agentinfo]
                       )
             print ("%s mo < permission-letter.md > tmp/%s.md" % (environ, row['nationbuilder_id']))
-            print ("%s mo < agent-opt-out.md > oos/%s.md" % (environ, row['nationbuilder_id']))
+            print ("%s mo < agent-access.md > oos/%s.md" % (environ, row['nationbuilder_id']))
