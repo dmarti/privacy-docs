@@ -46,7 +46,7 @@ request is fraudulent."
 
 If you choose not to act on this opt-out, you must
 provide me with an explanation of why you have
-agood-faith, reasonable, and documented belief that
+a good-faith, reasonable, and documented belief that
 this opt-out is fraudulent.
 
 ## Transfer of my personal information to Facebook
