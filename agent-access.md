@@ -1,7 +1,7 @@
 ---
 title: "California Consumer Privacy Act agent access letter"
 permalink: ccpa-agent-access
-date: 2021-02-15
+date: 2021-11-12
 ---
 
 To whom it may concern:
@@ -14,16 +14,20 @@ and has a California Corporate Number of
 {{ccpa_agent_number}}.
 
 The individual named below is a resident of the State
-of California, and has given written permission to
-{{ccpa_agent_name}} to act on their behalf. A copy of
-this written permission is included with this letter.
+of California, and has given a power of attorney to
+{{ccpa_agent_name}}. A copy of
+this power of attorney is included with this letter.
 
 Any personal information provided in this email may
 be used solely for the limited purpose of complying with the
 request stated in this email.
 
-{{ name }}, a California consumer, hereby opts out of the
-sale of their personal information.  The consumer's address is
+{{ ccpa_agent_name }} hereby requests that you disclose to
+{{ ccpa_agent_name }} the categories and specific pieces of
+personal information that your company has collected about
+{{ ccpa_name }}.
+
+The consumer's address is
 
 {{addressblock}}
 
@@ -31,21 +35,9 @@ Their phone number is {{phone}}.
 
 Their email address is {{email}}
 
-{{ccpa_agent_name}} has verified the consumer's
-identity, both by email and by SMS.
-
-According to Section 999.315(g) of the CCPA
-regulations, you may only deny this request
-if DAZZA TO RECOMMEND.
-
-If you choose not to act on this opt-out, you must
-provide {{ccpa_agent_name}} with DAZZA TO RECOMMEND.
-
 Please reply to {{ ccpa_agent_name }} by email to
-{{ccpa_agent_email}} within 45 days, either to confirm
-that you have completed all required action, or to
-provide an explanation of your good-faith, reasonable,
-and documented belief that this request is fraudulent.
+{{ccpa_agent_email}} within 45 days.
+
 
 Sincerely,
 
@@ -53,6 +45,6 @@ Sincerely,
 
 Attachments:
 
- * Authorization from the consumer
+ * Power of Attorney
 
- * {{ccpa_agent_name}} California corporate Certificate of Information
+ * {{ccpa_agent_name}} California corporate Certificate of Good Standing
