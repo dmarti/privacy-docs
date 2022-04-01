@@ -25,6 +25,16 @@ utility to put required values into the right spots on the template.
 All the commands used are in the Makefile.
 
 
+## The Facebook CCPA letter
+
+Sources are:
+
+https://buckleyfirm.com/sites/default/files/Buckley%20InfoBytes%20-%20CA%20OAG%20Opinion%20No.%2020-303.pdf
+
+https://storage.courtlistener.com/recap/gov.uscourts.cand.327471/gov.uscourts.cand.327471.902.0_2.pdf
+
+So far this company has not responded to any CCPA mail (to my knowledge)
+
 
 
 ## References
