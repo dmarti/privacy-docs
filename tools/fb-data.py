@@ -28,11 +28,16 @@ for root, dirs, files in os.walk(sys.argv[1]):
             # This file contains companies that have transferred your info in a
             # custom audience. Add to the info dictionary
             for k in ads1:
-                info[k['advertiser_name']] = {'custom_audience': 1}
+                ad_entry = info.get(k['advertiser_name'], {})
+                info[k['advertiser_name']] = ad_entry
+                users = ad_entry.get('custom_audience', set([]))
+                users.add(pathname)
+                info[k['advertiser_name']] = {'custom_audience': users}
 
             tmp = z.read('apps_and_websites_off_of_facebook/your_off-facebook_activity.json')
             activity = json.loads(tmp)['off_facebook_activity_v2']
             for k in activity:
+                n = k['name'] # advertiser name
                 for e in k['events']:
                     t = e['type']
 
@@ -40,10 +45,11 @@ for root, dirs, files in os.walk(sys.argv[1]):
                     event_types.add(t)
 
                     # Then add the event to the dictionary for this company
-                    try:
-                        info[k['name']][t] = 1
-                    except:
-                        info[k['name']] = {t: 1}
+                    event_entry = info.get(n, {})
+                    user_list = event_entry.get(t, set([]))
+                    user_list.add(pathname)
+                    event_entry[t] = user_list
+                    info[n] = event_entry
 
 # Now turn it into a CSV file (for spreadsheets)
 # First, make a header row
@@ -55,9 +61,9 @@ w.writerow(['name'] + el)
 for company in sorted(info.keys()):
     tmp = [company]
     for t in el:
-        try:
-            tmp.append(info[company][t])
-        except KeyError:
-            tmp.append(0)
+        company_entry = info[company]
+        raw = company_entry.get(t, set([]))
+        value = len(raw)
+        tmp.append(value)
     w.writerow(tmp)
 
