@@ -13,7 +13,14 @@ info = {}
 # Which event types have been seen in the data
 event_types = set(['custom_audience'])
 
+def error_out(message, status=1):
+    print(message, file=sys.stderr)
+    sys.exit(status)
+
 # step through every file in the directory given and find the files ending in .zip
+if len(sys.argv) != 2 or not os.path.isdir(sys.argv[1]):
+    error_out("Usage: %s [directory containing zip files]" % sys.argv[0]) 
+
 for root, dirs, files in os.walk(sys.argv[1]):
     for filename in files:
         pathname = os.path.join(root, filename)
