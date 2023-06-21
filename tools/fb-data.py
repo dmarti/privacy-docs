@@ -11,7 +11,8 @@ from zipfile import ZipFile
 info = {}
 
 # Which event types have been seen in the data
-event_types = set(['custom_audience'])
+# The 00_any member counts users for which any kind of event or CA membership was seen
+event_types = set(['custom_audience', '00_any'])
 
 def error_out(message, status=1):
     print(message, file=sys.stderr)
@@ -37,9 +38,16 @@ for root, dirs, files in os.walk(sys.argv[1]):
             for k in ads1:
                 ad_entry = info.get(k['advertiser_name'], {})
                 info[k['advertiser_name']] = ad_entry
-                users = ad_entry.get('custom_audience', set([]))
-                users.add(pathname)
-                info[k['advertiser_name']] = {'custom_audience': users}
+
+                # add this user to the set of users in custom audiences
+                ca_users = ad_entry.get('custom_audience', set([]))
+                ca_users.add(pathname)
+
+                # add this user to the set of users referred to by this company
+                # at all
+                any_users = ad_entry.get('00_any', set([]))
+                any_users.add(pathname)
+                info[k['advertiser_name']] = {'custom_audience': ca_users, '00_any': any_users}
 
             tmp = z.read('apps_and_websites_off_of_facebook/your_off-facebook_activity.json')
             activity = json.loads(tmp)['off_facebook_activity_v2']
@@ -53,9 +61,12 @@ for root, dirs, files in os.walk(sys.argv[1]):
 
                     # Then add the event to the dictionary for this company
                     event_entry = info.get(n, {})
-                    user_list = event_entry.get(t, set([]))
-                    user_list.add(pathname)
-                    event_entry[t] = user_list
+                    e_user_list = event_entry.get(t, set([]))
+                    e_user_list.add(pathname)
+                    any_user_list = event_entry.get('00_any', set([]))
+                    any_user_list.add(pathname)
+                    event_entry[t] = e_user_list
+                    event_entry['00_any'] = any_user_list
                     info[n] = event_entry
 
 # Now turn it into a CSV file (for spreadsheets)
