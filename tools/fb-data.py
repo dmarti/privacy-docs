@@ -30,7 +30,14 @@ for root, dirs, files in os.walk(sys.argv[1]):
 
         # Open the zipfile
         with ZipFile(pathname) as z:
-            tmp = z.read('ads_information/advertisers_using_your_activity_or_information.json')
+            ca_users_file = None
+            for f in z.namelist():
+                if f.endswith('advertisers_using_your_activity_or_information.json'):
+                    ca_users_file = f
+                    break
+            else:
+                raise NotImplementedError("CA JSON not found in %s" % pathname)
+            tmp = z.read(ca_users_file)
             ads1 = json.loads(tmp)['custom_audiences_all_types_v2']
 
             # This file contains companies that have transferred your info in a
@@ -49,7 +56,15 @@ for root, dirs, files in os.walk(sys.argv[1]):
                 any_users.add(pathname)
                 info[k['advertiser_name']] = {'custom_audience': ca_users, '00_any': any_users}
 
-            tmp = z.read('apps_and_websites_off_of_facebook/your_off-facebook_activity.json')
+            capi_users_file = None
+            for f in z.namelist():
+                print(f)
+                if f.endswith('your_off-facebook_activity.json'):
+                    capi_users_file = f
+                    break
+            else:
+                raise NotImplementedError("CAPI JSON not found in %s" % filename)
+            tmp = z.read(capi_users_file)
             activity = json.loads(tmp)['off_facebook_activity_v2']
             for k in activity:
                 n = k['name'] # advertiser name
