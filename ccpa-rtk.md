@@ -1,7 +1,7 @@
 ---
 title: "CCPA RTK letter"
 permalink: ccpa-rtk
-date: 2021-09-09
+date: 2026-02-09
 layout: document.html
 ---
 To whom it may concern:
@@ -17,7 +17,9 @@ My address is
 
 {{ CCPA_ADDRESS }}
 
-and my phone number is {{ CCPA_PHONE }}.
+My phone number is {{ CCPA_PHONE }}.
+
+My phone IMEI is {{ CCPA_IMEI }}.
 
 According to the California Consumer Privacy Act
 Regulations, "If a consumer submits a request
