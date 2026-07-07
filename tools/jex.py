@@ -12,8 +12,9 @@ Work in progress
 
 import tldextract
 import json
+from pprint import pp
 import sys
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 h = json.load(sys.stdin)
 l = h.get('log')
@@ -34,13 +35,27 @@ for p in l.get('pages'):
 print("Site is %s and first party domain is %s" % (top_fqdn, first_party))
 
 for e in l.get('entries'):
-    r = e.get('request')
-    u = r.get('url')
+    req = e.get('request')
+    res = e.get('response')
+    del(e['_initiator'])
+    u = req.get('url')
     ex = tldextract.extract(u)
     if ex.top_domain_under_public_suffix != first_party:
         continue
     if ex.fqdn == top_fqdn:
         continue
-    print(u, domain)
+    pu = urlparse(u)
+    q = parse_qs(pu.query)
+    print('----------------------------------------------')
+    print('First party* URL %s' % u)
+    for k in q:
+        assert(len(q[k]) == 1)
+        print("%s: %s" % (k, q[k][0]))
+    for k in q:
+        assert(len(q[k]) == 1)
+        print("%s: %s" % (k, q[k][0]))
+    print()
+    pp(e)
+    print('\n\n')
 
 
