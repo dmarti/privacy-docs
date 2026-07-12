@@ -41,7 +41,7 @@ def possible_hex_codes(stuff):
     for found in re.findall(hexstr, stuff):
         if len(found) <= 16:
             continue
-        if (result != stuff) and not (found in result):
+        if (found != stuff) and (not found in result):
             result.append(found)
     return result
 
@@ -49,13 +49,12 @@ def possible_uuids(stuff):
     uuidstr = r'\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b'
     result = []
     for found in re.findall(uuidstr, stuff):
-        if not found in result:
+        if (found != stuff) and (not found in result):
             result.append(found)
     return result
 
 def possible_codes(stuff):
     all_codes = possible_hex_codes(stuff) + possible_uuids(stuff)
-    print(all_codes)
     return all_codes
 
 @dataclass
@@ -95,15 +94,18 @@ for e in l.get('entries'):
         index_tracker(rc)
 
     for rcookie in req.get('cookies'):
-        rc = Tracker(ttype='request_cookie', key=rcookie.get('name'), value=rcookie.get('value'), url = rcookie.get('domain'))
+        rc = Tracker(ttype='request_cookie', key=rcookie.get('name'), value=rcookie.get('value'), url = url)
         index_tracker(rc)
         for code in possible_codes(rcookie.get('value')):
-            rc = Tracker(ttype='request_cookie_fragment', key=rcookie.get('name'), value=code, url = rcookie.get('domain'))
+            rc = Tracker(ttype='request_cookie_fragment', key=rcookie.get('name'), value=code, url = url)
             index_tracker(rc)
 
     for rcookie in res.get('cookies'):
-        rc = Tracker(ttype='request_cookie', key=rcookie.get('name'), value=rcookie.get('value'), url = rcookie.get('domain'))
+        rc = Tracker(ttype='response_cookie', key=rcookie.get('name'), value=rcookie.get('value'), url = url)
         index_tracker(rc)
+        for code in possible_codes(rcookie.get('value')):
+            rc = Tracker(ttype='response_cookie_fragment', key=rcookie.get('name'), value=code, url = url)
+            index_tracker(rc)
 
     con = res.get('content')
     mime = con.get('mimeType')
@@ -112,8 +114,7 @@ for e in l.get('entries'):
         text = con.get('text')
         size = con.get('size')
         for possible in possible_codes(text):
-            print(" ---> ", possible)
-            rc = Tracker(ttype="hex_response", key=con, value=possible, url = req.get('url'))
+            rc = Tracker(ttype="id_in_response", key=con, value=possible, url = req.get('url'))
 
         if size > 0 and not text:
             error("%s body of %d bytes missing from %s" % (mime, size, req.get('url')))
