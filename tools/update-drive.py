@@ -5,7 +5,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaIoBaseDownload
 
+import io
 import logging
 import sys
 
@@ -15,7 +17,6 @@ import sys
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 
 input_dir = "JEX HAR files"
-output_dir = "JEX HTML files"
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, format='%(levelname)s: %(message)s')
@@ -56,10 +57,8 @@ def main():
         error_out(ex)
 
     # Call the Drive v3 API to list folders
-    results = service.files().list(
-        q="mimeType = 'application/vnd.google-apps.folder' and trashed = false and name contains '%s'" % input_dir,
-        fields="nextPageToken, files(id)"
-    ).execute()
+    q = "mimeType = 'application/vnd.google-apps.folder' and trashed = false and name contains '%s'" % input_dir
+    results = service.files().list(q=q, fields="nextPageToken, files(id)").execute()
 
     items = results.get('files', [])
     if not items or len(items) != 1:
@@ -68,24 +67,37 @@ def main():
         folder_id = items[0]['id']
         logging.debug("Folder id is %s" % folder_id)
 
-    query = f"'%s' in parents and trashed = false" % folder_id
+    q = f"'%s' in parents and trashed = false" % folder_id
     results = service.files().list(
-        q=query,
+        q=q,
         pageSize=100,
         fields="nextPageToken, files(id, name, mimeType)"
     ).execute()
+
+    if results.get('nextPageToken'):
+        raise NotImplementedError
 
     items = results.get('files', [])
 
     if not items:
         print('No files found in this folder.')
     else:
-        print('Files found:')
         for item in items:
             if item['mimeType'] not in ('application/json'):
                 logging.info("Unexpected MIME type in folder: %s (%s)" % (item['name'], item['mimeType']))
             else:
                 print(f"{item['name']} (ID: {item['id']}, Type: {item['mimeType']})")
+
+            output_filename = item['name']
+            request = service.files().get_media(fileId=item['id'])
+            fh = io.FileIO(output_filename, 'wb')
+
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+            while done is False:
+                status, done = downloader.next_chunk()
+                logging.debug("Download progress: %d%%" % int(status.progress() * 100))
+            logging.info("Downloaded %s" % output_filename)
 
 if __name__ == "__main__":
     main()
