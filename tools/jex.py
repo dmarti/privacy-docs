@@ -70,6 +70,14 @@ def possible_b64_codes(stuff):
             result.append(found)
     return result
 
+def possible_ecids(stuff):
+    ecidstr = r'\b[0-9]{38}\b'
+    result = []
+    for found in re.findall(ecidstr, stuff):
+        if (found != stuff) and (not found in result):
+            result.append(found)
+    return result
+
 def possible_uuids(stuff):
     uuidstr = r'\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b'
     result = []
@@ -79,7 +87,7 @@ def possible_uuids(stuff):
     return result
 
 def possible_codes(stuff):
-    all_codes = set(possible_hex_codes(stuff) + possible_uuids(stuff) + possible_b64_codes(stuff))
+    all_codes = set(possible_hex_codes(stuff) + possible_uuids(stuff) + possible_b64_codes(stuff) + possible_ecids(stuff))
     return list(all_codes)
 
 @dataclass
