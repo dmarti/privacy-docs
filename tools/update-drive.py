@@ -7,6 +7,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 import logging
+import sys
 
 # If modifying these scopes, delete the file token.json.
 # Available scopes are listed at
@@ -17,11 +18,12 @@ input_dir = "JEX HAR files"
 output_dir = "JEX HTML files"
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, format='%(levelname)s: %(message)s')
 
-def ex(msg, exit_code=1):
+def error_out(msg, exit_code=1):
+    "Exit with an error message"
     logging.error(msg)
     sys.exit(exit_code)
-
 
 def get_creds():
     creds = None
@@ -56,18 +58,34 @@ def main():
     # Call the Drive v3 API to list folders
     results = service.files().list(
         q="mimeType = 'application/vnd.google-apps.folder' and trashed = false and name contains '%s'" % input_dir,
-        fields="nextPageToken, files(id, name)"
+        fields="nextPageToken, files(id)"
+    ).execute()
+
+    items = results.get('files', [])
+    if not items or len(items) != 1:
+        error_out("Input folder %s not found or too many matching folders" % input_dir)
+    else:
+        folder_id = items[0]['id']
+        logging.debug("Folder id is %s" % folder_id)
+
+    query = f"'%s' in parents and trashed = false" % folder_id
+    results = service.files().list(
+        q=query,
+        pageSize=100,
+        fields="nextPageToken, files(id, name, mimeType)"
     ).execute()
 
     items = results.get('files', [])
 
-    if not items or len(items) != 1:
-        error("Input folder %s not found or too many matching folders" % input_dir)
+    if not items:
+        print('No files found in this folder.')
     else:
-        print('Folders found:')
+        print('Files found:')
         for item in items:
-            print(f"{item['name']} (ID: {item['id']})")
-
+            if item['mimeType'] not in ('application/json'):
+                logging.info("Unexpected MIME type in folder: %s (%s)" % (item['name'], item['mimeType']))
+            else:
+                print(f"{item['name']} (ID: {item['id']}, Type: {item['mimeType']})")
 
 if __name__ == "__main__":
     main()
