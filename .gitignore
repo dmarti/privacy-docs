@@ -9,3 +9,5 @@ ccpa-fax-complete.md
 sample-data/
 data/
 token.json
+*.har
+*.HAR
