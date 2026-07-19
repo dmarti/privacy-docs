@@ -18,8 +18,9 @@ import re
 import sys
 from urllib.parse import parse_qs, urlparse, urlunparse
 
-h = json.load(sys.stdin)
-l = h.get('log')
+with open(sys.argv[1]) as fh:
+    h = json.load(fh)
+    l = h.get('log')
 
 trackers = []
 

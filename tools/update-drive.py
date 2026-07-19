@@ -23,8 +23,12 @@ SCOPES = ["https://www.googleapis.com/auth/drive"]
 # This is the location at which the secret is stored in the password manager.
 SECRET = 'gdrive-secret'
 
+# Tool that generates reports from HAR (takes 1 argument, local HAR file path)
+REPORT_GENERATOR = '/home/dmarti/Projects/privacy-docs/tools/jex.py'
+
 remote_dir = "CONFIDENTIAL web surveillance data"
 
+# Set up logging. TODO Change level to logging.INFO when ready
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, format='%(levelname)s: %(message)s')
 
@@ -43,6 +47,9 @@ def private_open(path, flags):
     return os.open(path, flags, 0o700)
 
 def get_creds():
+    """
+    Do Google API to get a usable token file with s33krit stuff in it.
+    """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -102,6 +109,7 @@ def get_folder_id(service):
 
 @dataclass
 class RemoteFile:
+    "Simple class to keep track of the info we need for a remote file."
     name: str
     fid: str
     mimeType: str
@@ -120,7 +128,6 @@ class RemoteFile:
         return self.mimeType == "application/vnd.google-apps.document"
 
 class RemoteFileList(UserList):
-
     def has_name(self, name):
         for item in self:
             if item.name == name:
@@ -132,11 +139,11 @@ def get_remote_files(service, folder_id):
     q = f"'%s' in parents and trashed = false" % folder_id
     results = service.files().list(
         q=q,
-        pageSize=100,
+        pageSize=1000,
         fields="nextPageToken, files(id, name, mimeType)"
     ).execute()
 
-    if results.get('nextPageToken'):
+    if results.get('nextPageToken'): # FIXME handle overflow
         raise NotImplementedError
 
     items = results.get('files', [])
@@ -179,8 +186,13 @@ def sync_reports(service, folder_id, remote_harfiles, remote_reports):
             'parents': [folder_id]
         }
 
-        html_content = "<h1>Hello world</h1><p>This is the body copy</p>"
-
+        try:
+            report_process = subprocess.run([REPORT_GENERATOR, item.name], capture_output=True, text=True, check=True)
+            html_content = report_process.stdout
+        except Exception as err:
+            logging.warning("Skipping %s because %s" % (item, err))
+            logging.warning(err.stderr)
+            continue
         html_bytes = io.BytesIO(html_content.encode('utf-8'))
         media = MediaIoBaseUpload(html_bytes, mimetype='text/html', resumable=True)
         file = service.files().create(
