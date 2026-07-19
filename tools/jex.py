@@ -48,7 +48,11 @@ def only_id_in_response(v):
     return True
 
 def error(s):
-    print(s, file=sys.stdout)
+    print(s, file=sys.stderr)
+
+def hprint(tag, *stuff):
+    text = " ".join(stuff)
+    print("<%s>%s</%s>" % (tag, text, tag))
 
 def possible_hex_codes(stuff):
     hexstr = r'\b[0-9a-fA-F]+\b'
@@ -116,7 +120,7 @@ for p in l.get('pages'):
     elif fqdn != top_fqdn:
         raise NotImplementedError("This HAR file covers more than one domain")
 
-print("Site is %s and first party domain is %s\n" % (top_fqdn, first_party))
+hprint('p', "Site is %s and first party domain is %s\n" % (top_fqdn, first_party))
 
 for e in l.get('entries'):
     req = e.get('request')
@@ -145,7 +149,7 @@ for e in l.get('entries'):
     mime = con.get('mimeType')
     #if mime == 'application/json':
     if mime and not mime.startswith('image/'):
-        text = con.get('text')
+        text = con.get('text', "")
         size = con.get('size')
         if len(text) < 1024 and not "`" in text:
             key = text
@@ -189,12 +193,12 @@ for v in sorted(trackers_by_value):
     if len(these_domains) < 2:
         continue
     print("\n\n")
-    print("## `%s`" % v)
-    print("\nDomains: ", ', '.join(these_domains), "\n")
+    hprint('h2', v)
+    hprint("p", "\nDomains: ", ', '.join(these_domains), "\n")
     seen = []
     for t in trackers_by_value[v]:
         d = t.desc
         if d in seen:
             continue
-        print(t.desc, "\n")
+        hprint("p", t.desc)
         seen.append(t.desc)

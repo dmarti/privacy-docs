@@ -1,4 +1,12 @@
-import os.path
+from collections import UserList
+from dataclasses import dataclass, field
+import io
+import json
+import logging
+import os
+import subprocess
+import sys
+import time
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -6,14 +14,6 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload, MediaIoBaseUpload
-
-from dataclasses import dataclass, field
-import io
-import json
-import logging
-import subprocess
-import sys
-import time
 
 # If modifying these scopes, delete the file token.json.
 # Available scopes are listed at
@@ -107,7 +107,7 @@ class RemoteFile:
     mimeType: str
 
     def __repr__(self):
-        return "Remote file %s (id %s MIME type %s)" % (self.name, self.fid, self.mimeType)
+        return "Remote file %s (id %s MIME %s)" % (self.name, self.fid, self.mimeType)
 
     def isHarFile(self):
         if not self.name.lower().endswith('.har'):
@@ -119,9 +119,16 @@ class RemoteFile:
     def isReport(self):
         return self.mimeType == "application/vnd.google-apps.document"
 
+class RemoteFileList(UserList):
+
+    def has_name(self, name):
+        for item in self:
+            if item.name == name:
+                return True
+        return False
 
 def get_remote_files(service, folder_id):
-    harfiles, reports = [], []
+    harfiles, reports = RemoteFileList(), RemoteFileList()
     q = f"'%s' in parents and trashed = false" % folder_id
     results = service.files().list(
         q=q,
@@ -141,8 +148,6 @@ def get_remote_files(service, folder_id):
             reports.append(entry)
         else:
             logging.warning("Unexpected %s" % entry)
-    logging.debug("remote HAR files %s" % harfiles)
-    logging.debug("remote reports %s" % reports)
     return harfiles, reports
 
 def sync_remote_harfiles(service, harfiles):
@@ -150,7 +155,7 @@ def sync_remote_harfiles(service, harfiles):
         assert item.mimeType == 'application/json'
         output_filename = item.name
         if os.path.isfile(output_filename):
-            logging.debug("Skipping existing local file %s" % output_filename)
+            logging.debug("Not downloading %s present as local file %s" % (item, output_filename))
             continue
         request = service.files().get_media(fileId=item.fid)
         fh = io.FileIO(output_filename, 'wb')
@@ -164,6 +169,9 @@ def sync_remote_harfiles(service, harfiles):
 def sync_reports(service, folder_id, remote_harfiles, remote_reports):
     for item in remote_harfiles:
         report_name = har_name_to_report_name(item.name)
+        if remote_reports.has_name(report_name):
+            logging.debug("Report already exists: %s" % item)
+            continue
 
         file_metadata = {
             'name': report_name,
